@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+sample_data_eth_dexpools.txt
+consumer.py
+consumer_dex_pools.py
+liquidity_drain_detector.py
+test_*.py
+start_frontend.sh
+render.yaml
+DEPLOY.md
