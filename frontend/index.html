@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Liquidity Drain Detection</title>
+    <script>
+      // Set CSS path before page loads
+      (function() {
+        const path = window.location.pathname;
+        const basePath = path.includes('/realtime-liquidity-drain-detector') ? '/realtime-liquidity-drain-detector' : '';
+        document.write('<link rel="stylesheet" href="' + basePath + '/styles.css">');
+      })();
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Realtime Liquidity Drain Detection</h1>
+            <div class="header-actions">
+                <button id="configBtn" class="btn btn-secondary">Configure</button>
+            </div>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-label">Total Alerts</span>
+                <span class="stat-value" id="totalAlerts">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Critical</span>
+                <span class="stat-value critical" id="criticalAlerts">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Warning</span>
+                <span class="stat-value warning" id="warningAlerts">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Unique Pools</span>
+                <span class="stat-value" id="uniquePools">0</span>
+            </div>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label for="poolFilter">Filter by Pool Address/Pool ID</label>
+                <input type="text" id="poolFilter" placeholder="Enter pool address or Pool ID (e.g., 0x... or for Uniswap V4: 0x...)">
+            </div>
+            <div class="filter-group">
+                <label for="typeFilter">Alert Type</label>
+                <select id="typeFilter">
+                    <option value="">All Types</option>
+                    <option value="liquidity_drop">Liquidity Drop</option>
+                    <option value="max_amount_decrease">Max Amount Decrease</option>
+                    <option value="rapid_drain">Rapid Drain</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="severityFilter">Severity</label>
+                <select id="severityFilter">
+                    <option value="">All Severities</option>
+                    <option value="critical">Critical</option>
+                    <option value="warning">Warning</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <button id="clearFiltersBtn" class="btn btn-text">Clear Filters</button>
+            </div>
+        </div>
+
+        <div class="alerts-container">
+            <div class="loading" id="loading">Loading alerts...</div>
+            <div id="alertsContainer"></div>
+        </div>
+    </div>
+
+    <!-- Configuration Modal -->
+    <div class="modal" id="configModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Configuration</h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="config-section">
+                    <h3>Liquidity Drop Thresholds</h3>
+                    <div class="config-item">
+                        <label for="liquidityDropWarning">Warning Threshold (%)</label>
+                        <input type="number" id="liquidityDropWarning" min="0" max="100" step="0.1">
+                    </div>
+                    <div class="config-item">
+                        <label for="liquidityDropCritical">Critical Threshold (%)</label>
+                        <input type="number" id="liquidityDropCritical" min="0" max="100" step="0.1">
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h3>Max Amount Decrease Thresholds</h3>
+                    <div class="config-item">
+                        <label for="maxAmountWarning">Warning Threshold (%)</label>
+                        <input type="number" id="maxAmountWarning" min="0" max="100" step="0.1">
+                    </div>
+                    <div class="config-item">
+                        <label for="maxAmountCritical">Critical Threshold (%)</label>
+                        <input type="number" id="maxAmountCritical" min="0" max="100" step="0.1">
+                    </div>
+                </div>
+
+                <div class="config-section">
+                    <h3>Rapid Drain Threshold</h3>
+                    <div class="config-item">
+                        <label for="rapidDrainThreshold">Threshold (%)</label>
+                        <input type="number" id="rapidDrainThreshold" min="0" max="100" step="0.1">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelConfig">Cancel</button>
+                <button class="btn btn-primary" id="saveConfig">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      // Load app.js with correct base path
+      (function() {
+        const path = window.location.pathname;
+        const basePath = path.includes('/realtime-liquidity-drain-detector') ? '/realtime-liquidity-drain-detector' : '';
+        document.write('<script src="' + basePath + '/app.js"><\/script>');
+      })();
+    </script>
+</body>
+</html>
