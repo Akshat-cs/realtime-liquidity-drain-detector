@@ -12,7 +12,7 @@ Detects liquidity drains in DEX pools by monitoring real-time events from Kafka.
 pip install -r requirements.txt
 ```
 
-2. Configure credentials in `config.py`:
+2. Configure credentials in `config.sample.py` and change the filename to `config.py`:
 
 ```python
 username = "your_username"
